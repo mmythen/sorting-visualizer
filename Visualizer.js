@@ -1,7 +1,21 @@
-list = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
-//function to randomly shuffle my list for sorting
+var list = []
+var amount;
+
+// submit the chosen amount of items to sort
+function submit() {
+    reset();
+    amountInput = document.getElementById("amount");
+    amount = amountInput.value;
+    list.push(1,2);
+    for (let num = 3; num <= amount; num++) {
+        list.push(num);
+    }
+    setup();
+}
+
+//function to randomly shuffle MY list for sorting
 function shuffle(array) {
-    let currentIndex = array.length,  randomIndex;
+    let currentIndex = array.length;
     while (currentIndex > 0) {
       randomIndex = Math.floor(Math.random() * currentIndex);
       currentIndex--;
@@ -16,28 +30,42 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-//shuffling list
-list = shuffle(list);
-
-console.log(list)
 //Creating the divs for sorting visualization
-for (let i = 0; i < 20; i++) {
-    var div = document.createElement("div");
-    div.style.width = "5%";
-    div.style.background = "green";
-    div.style.margin = "5px";
-    div.style.height = String(list[i]*30) + "px";
-    div.style.marginTop = String(600 - list[i]*30) + "px";
-    div.id = "div"+(i+1);
-    document.getElementById("main").appendChild(div);
+function setup() {
+    list = shuffle(list)
+    for (let i = 0; i < amount; i++) {
+        var div = document.createElement("div");
+        div.style.width = "5%";
+        div.style.background = "green";
+        div.style.margin = "5px";
+        div.style.height = String(list[i]*30) + "px";
+        div.style.marginTop = String(600 - list[i]*30) + "px";
+        div.id = "div"+(i+1);
+        document.getElementById("main").appendChild(div);
+    }
+}
+
+// resetting the display
+function reset() {
+    list = [];
+    for (let i = 0; i < amount; i++) {
+        var div = document.createElement("div");
+        div.id = "div"+(i+1);
+        document.getElementById("div"+(i+1)).remove();
+    }
+}
+
+// calling the selected sorting algo
+function sort() {
+    inputtedAlgo = document.getElementById("algos");
+    algo = inputtedAlgo.value;
+    if (algo == "bubbleSort") {
+        bubbleSort(list);
+    }
 }
 
 
-
 // sorting algorithms js
-
-
-
 function bubbleSort(list) { 
     for (var i = 0; i < list.length; i++) {
 
@@ -60,10 +88,7 @@ function bubbleSort(list) {
         } 
     }
     return list
-} 
-
-bubbleSort(list)
-console.log(list)
+}
  
 
 
