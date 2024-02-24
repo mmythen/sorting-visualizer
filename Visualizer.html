@@ -6,25 +6,38 @@
     <title>Document</title>
     <link rel="stylesheet" href="Visualizer.css">
 </head>
-<body style="background-color: #383838;">
-    <div>
-        <!-- select algo -->
-        <button type="button" onclick="sort()">Sort</button>
-        <select id="algos">
-            <option value="bubbleSort">Bubble Sort</option>
-        </select>
+<body>
+    <div class="app">
+        <div class="themeMenu">
+            <button type="button" onclick="setTheme('theme-default')">Default Theme</button>
+            <button type="button" onclick="setTheme('theme-pink')">Pink Theme</button>
+            <button type="button" onclick="setTheme('theme-bw')">Black & White</button>
+        </div>
+        <div class="options">
+            <div>
+                <button type="button" onclick="sort()">Sort</button>
+                <select id="algos">
+                    <option value="bubbleSort">Bubble Sort</option>
+                    <option value="bozoSort">Bozo Sort</option>
+                </select>
+            </div>
+            <div>
+                <!-- shuffle -->
+                <button type="button" onclick="submit()">Shuffle</button>
+            </div>
+            <div id="sortSelection">
+                <!-- select amount to sort -->
+                <input type="range" name="amount" id="amount" min="2" max="20" value="10" onmousemove="updateSlider()">
+                <label for="amount" id="amountDisplay">Amount: </label>
+                <button type="button" onclick="submit()">Submit</button>
+            </div>
+        </div>
+    
+    
+        <div class="mainContainer">
+            <div id="main", style="display: flex"></div>
+        </div>
     </div>
-    <div>
-        <!-- shuffle -->
-        <button type="button" onclick="submit()">Shuffle</button>
-    </div>
-    <div>
-        <!-- select amount to sort -->
-        <input type="range" name="amount" id="amount" min="2" max="20" value="10">
-        <label for="amount">Amount</label>
-        <button type="button" onclick="submit()">Submit</button>
-    </div>
-    <div id="main", style="display: flex"></div>
 </body>
 <footer>
     <script src="Visualizer.js"></script>
