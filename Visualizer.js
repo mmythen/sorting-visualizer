@@ -1,11 +1,16 @@
 var list = []
 var amount;
+var totalHeight = 40; // in vw
+var totalWidth = 40; // in vw
+var delay = 35; // in ms
+var barColour = "green"
 
 // submit the chosen amount of items to sort
 function submit() {
     reset();
     amountInput = document.getElementById("amount");
     amount = amountInput.value;
+    updateSlider();
     list.push(1,2);
     for (let num = 3; num <= amount; num++) {
         list.push(num);
@@ -25,18 +30,13 @@ function shuffle(array) {
     return array;
 }
 
-//sleep function
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
-
 //Creating the divs for sorting visualization
 function setup() {
     list = shuffle(list)
     for (let i = 0; i < amount; i++) {
         var div = document.createElement("div");
-        div.style.width = "5%";
-        div.style.background = "green";
+        div.style.width = String(totalWidth / amount) + "vw";
+        div.style.background = barColour;
         div.style.margin = "5px";
         div.style.height = String(list[i]*30) + "px";
         div.style.marginTop = String(600 - list[i]*30) + "px";
@@ -57,37 +57,76 @@ function reset() {
 
 // calling the selected sorting algo
 function sort() {
+    curr_i = 0;
+    curr_j = 0;
     inputtedAlgo = document.getElementById("algos");
     algo = inputtedAlgo.value;
     if (algo == "bubbleSort") {
-        bubbleSort(list);
+        list = bubbleSort(list)
+    }
+}
+async function visualizeSort(list, j) {
+    // matching the height of the divs with the new values
+    document.getElementById('div'+String(j+1)).style.height = String(list[j]*30) + "px";
+    document.getElementById('div'+String(j+1)).style.marginTop = String(600 - list[j]*30) + "px";
+    document.getElementById('div'+String(j+2)).style.height = String(list[j+1]*30) + "px";
+    document.getElementById('div'+String(j+2)).style.marginTop = String(600 - list[j+1]*30) + "px";
+
+    // Simulate a delay to visualize the sorting process
+    await new Promise(resolve => setTimeout(resolve, delay));
+}
+
+// update the slider amount:
+function updateSlider() {
+    amountInput = document.getElementById("amount");
+    tempAmount = amountInput.value;
+    amountDisplay = document.getElementById("amountDisplay");
+    amountDisplay.textContent = "Amount: " + String(tempAmount);
+}
+
+// themes
+function setTheme(themeName) {
+    document.documentElement.className = themeName;
+    switch (themeName) {
+        case 'theme-default':
+            barColour = 'green';
+            break;
+        
+        case 'theme-pink':
+            barColour = 'rgb(250, 100, 255)';
+            break;
+    
+        case 'theme-bw':
+            barColour = '#fff';
+            break;
+
+        default:
+            barColour = 'green';
+    }
+    for (let i = 0; i < list.length; i++) {
+        visualizeSort(list, i);
     }
 }
 
 
-// sorting algorithms js
-function bubbleSort(list) { 
+// sorting algorithms
+async function bubbleSort(list) { 
     for (var i = 0; i < list.length; i++) {
-
         for (var j = 0; j < (list.length - i - 1); j++) { 
 
             //checking if the two element need to be swapped
             if (list[j] > list[j + 1]) { 
 
                 //swapping the 2 values in list
-                var temp = list[j] 
-                list[j] = list[j + 1]
-                list[j + 1] = temp
+                var temp = list[j];
+                list[j] = list[j + 1];
+                list[j + 1] = temp;
 
-                // matching the height of the divs with the new values
-                document.getElementById('div'+String(j+1)).style.height = String(list[j]*30) + "px";
-                document.getElementById('div'+String(j+1)).style.marginTop = String(600 - list[j]*30) + "px";
-                document.getElementById('div'+String(j+2)).style.height = String(list[j+1]*30) + "px";
-                document.getElementById('div'+String(j+2)).style.marginTop = String(600 - list[j+1]*30) + "px";
+                await visualizeSort(list, j);
             }
         } 
     }
-    return list
+    return list;
 }
  
 

@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+:root{
+    --barColour: green;
+}
+
+.theme-default {
+    --color-background: #383838;
+    --color-primary: green;
+    --color-text: black;
+}
+
+.theme-pink {
+    --color-background: #f8c2ff;
+    --color-primary: rgb(250, 100, 255);
+    --color-text: black;
+}
+
+.theme-bw {
+    --color-background: #000;
+    --color-primary: #fff;
+    --color-text: #fff;
+}
+
+body {
+    background-color: var(--color-background);
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color: var(--color-text);
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.app {
+    display: flex;
+    flex-direction: column;
+}
+.options {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.mainContainer {
+    display: flex;
+    justify-content: center;
+}
+
+.main {
+    display: flex;
+}
+
+div.options > div {
+    padding: 3vw;
+}
+
+button {
+    
+    cursor: pointer;
+    outline: 0;
+    display: inline-block;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: center;
+    background-color: transparent;
+    border: 1px solid transparent;
+    padding: 6px 12px;
+    font-size: 1rem;
+    border-radius: .25rem;
+    color: var(--color-primary);
+    background-color: var(--color-background);
+    border-color: var(--color-primary);
+}
+button:hover {
+    color: var(--color-background);
+    background-color: var(--color-primary);
+    border-color: var(--color-background);
+}
+
+div#sortSelection {
+    display: flex;
+    flex-direction: column;
+}
+
+div.options > div {
+    margin-bottom: 3vh;
+}
+
+select {
+    appearance: none;
+    width: 100%;
+    padding: 0.675em 6em 0.675em 1em;
+    background-color: var(--color-background);
+    border: 1px solid var(--color-primary);
+    border-radius: 0.25rem;
+    color: var(--color-text);
+    cursor: pointer;
+}
