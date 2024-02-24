@@ -8,7 +8,6 @@
 </head>
 <body style="background-color: #383838;">
     <div>
-        <!-- select algo -->
         <button type="button" onclick="sort()">Sort</button>
         <select id="algos">
             <option value="bubbleSort">Bubble Sort</option>
@@ -21,10 +20,12 @@
     <div>
         <!-- select amount to sort -->
         <input type="range" name="amount" id="amount" min="2" max="20" value="10">
-        <label for="amount">Amount</label>
+        <label for="amount" id="amountDisplay">Amount: </label>
         <button type="button" onclick="submit()">Submit</button>
     </div>
-    <div id="main", style="display: flex"></div>
+    <div class="mainContainer">
+        <div id="main", style="display: flex"></div>
+    </div>
 </body>
 <footer>
     <script src="Visualizer.js"></script>
